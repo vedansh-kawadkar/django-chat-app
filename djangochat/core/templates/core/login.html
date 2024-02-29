@@ -7,8 +7,15 @@
     <h1 class="text-3xl lg:text-6xl text-white">Login</h1>
 </div>
 
+
 <form action="." method="post" class="lg:w-1/4 px-4 mx-auto">
     {% csrf_token %}
+    
+    {% if has_errors %}
+        <div class="mb-5 p-4 rounded-xl bg-red-400 text-white border-white">
+            <p>{{ errors }}</p>
+        </div>
+    {% endif %}
     <div class="mb-5">
         <label for="" class="text-white">Username</label>
         <input type="text" name="username" class="w-full mt-2 px-4 py-2 rounded-xl">
@@ -18,6 +25,7 @@
         <label for="" class="text-white">Password</label>
         <input type="password" name="password" class="w-full mt-2 px-4 py-2 rounded-xl">
     </div>
+
 
     {% if form.errors %}
         {% for field in form %}
