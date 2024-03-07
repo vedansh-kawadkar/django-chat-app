@@ -22,3 +22,8 @@ def room(request, slug):
         "messages":messages
     })
     
+    
+@login_required
+def create_room():
+    ...
+    

@@ -32,6 +32,7 @@ def userlogin(request):
         has_errors = True
         if user:
             has_errors = False
+            request.session.set_expiry(1200)
             login(request, user)
             return redirect('frontpage')
         errors = "Invalid Credentials"

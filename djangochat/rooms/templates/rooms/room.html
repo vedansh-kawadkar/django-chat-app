@@ -1,10 +1,13 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}{{ room.name }} | {% endblock %}
 
+{% block css_files %} <link rel="stylesheet" href="{% static 'rooms/room.css' %}"> {% endblock %}
+
 {% block content %}
-<div class="p-10 lg:p-20 text-center">
-    <h1 class="text-3xl lg:text-6xl text-white">{{ room.name }}</h1>
+<div class="room-heading">
+    <h1>{{ room.name }}</h1>
 </div>
 
 <div class="lg:w-2/4 mx-4 lg:mx-auto p-4 bg-white rounded-xl">
@@ -12,7 +15,7 @@
         {% for message in messages %}
             <div class="p-4 bg-gray-200 rounded-xl">
                 <p class="font-semibold">{{ message.user.username }}</p>
-                <p>{{ message.message_text }}</p> 
+                <p id="chat-message">{{ message.message_text }}</p> 
             </div>
         {% endfor %}
     </div>
@@ -20,7 +23,7 @@
 
 <div class="lg:w-2/4 mx-4 lg:mx-auto p-4 bg-white rounded-xl">
     <form action="." method="post" class="flex">
-        <input type="text" name="content" id="chat-msg-input" class="flex-1 mr-3" placeholder="Your message...">
+        <textarea name="content" id="chat-msg-input" class="flex-1 mr-3" placeholder="Your message..."></textarea>
         <button class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700" id="chat-msg-send">Send</button>
     </form>
 </div>
@@ -30,9 +33,12 @@
 {% block scripts %}
 {{ request.user.username|json_script:"json-username" }}
 {{ room.slug|json_script:"json-roomname" }}
+{{ request.session.get_expiry_age|json_script:"json-expiry" }}
 <script>
-    const roomName = JSON.parse(document.getElementById('json-roomname').textContent)
+    const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
     const userName = JSON.parse(document.getElementById('json-username').textContent);
+    const expiry = JSON.parse(document.getElementById('json-expiry').textContent);
+
     const chatSocket = new WebSocket(
         'ws://'
         + window.location.host
@@ -43,10 +49,10 @@
 
     chatSocket.onmessage = function(e) {
         console.log('onmessage')
-
+        console.log(expiry)
         const data = JSON.parse(e.data);
         if(data.message){
-            let html_content = '<div class="p-4 bg-gray-200 rounded-xl">';
+            let html_content = '<div class="p-4 bg-gray-200 rounded-xl" id="chat-msg-input">';
                 html_content+='<p class="font-semibold">'+data.username+'</p>';
                 html_content+='<p>'+data.message+'</p></div>';
             console.log(html_content)

@@ -1,0 +1,31 @@
+.room-heading {
+    padding: 1.7rem;
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.875rem;
+    color: white;
+}
+
+@media (min-width: 1024px) {
+    .room-heading {
+      padding: 3.5rem;
+      font-size: 3.75rem;
+    }
+
+    h1 {
+        font-size: 3.75rem;
+    }
+  }
+
+#chat-message {
+    text-wrap: wrap;
+    word-wrap: break-word;
+}
+
+#chat-msg-input {
+    word-wrap: break-word;
+    text-wrap: wrap;
+}
+

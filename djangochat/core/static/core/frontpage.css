@@ -1,0 +1,37 @@
+.room-action {
+    padding: 2.5rem;
+    text-align: center;
+    height: 50px;
+}
+
+#new-room {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+    border: 2px white solid;
+    border-radius: 10px;
+    transition-duration: 0.5s;
+    margin: 2rem;
+}
+
+#new-room:hover,
+#new-room:active{
+    background-color: white;
+    color: #916ae6;
+}
+
+#rooms {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+    border: 2px white solid;
+    border-radius: 10px;
+    margin: 2rem;
+    transition-duration: 0.5s;
+}
+
+#rooms:hover,
+#rooms:active{
+    background-color: white;
+    color: #916ae6;
+}

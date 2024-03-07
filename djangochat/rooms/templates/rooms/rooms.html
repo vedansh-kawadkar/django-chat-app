@@ -1,10 +1,13 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}Rooms | {% endblock %}
 
+{% block css_files %} <link rel="stylesheet" href="{% static 'rooms/rooms.css' %}"> {% endblock %}
+
 {% block content %}
-<div class="p-10 lg:p-20 text-center">
-    <h1 class="text-3xl lg:text-6xl text-white">Rooms</h1>
+<div class="rooms-heading">
+    <h1>Rooms</h1>
 </div>
 
 <div class="w-ful flex flex-wrap items-center">

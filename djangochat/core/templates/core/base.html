@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %} DjangoChat</title>
     <script src="https://cdn.tailwindcss.com" ></script>
+    <link rel="stylesheet" href="{% static 'core/base.css' %}">
+    {% block css_files %}{% endblock %}
     <style>
         .chat-messages{
             height: 400px;
@@ -12,19 +16,18 @@
         }
     </style>
 </head>
-<body class="bg-teal-600" >
-    <nav class="flex items-center justify-between px-4 py-6 bg-teal-800">
-        <div>
-            <a href="/" class="text-xl text-white">DjangoChat</a>
+<body>
+    <nav>
+        <div id="app-name">
+            <a href="/" >DjangoChat</a>
         </div>
 
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-4" id="user-buttons">
             {% if request.user.is_authenticated %}
-                <a href="/rooms/" class="text-white hover:text-gray-400">Rooms</a>
-                <a href="/logout/" class="text-white hover:text-gray-400">Log Out</a>
+                <a href="/logout/" id="logout">Log Out</a>
             {% else %}
-                <a href="/login/" class="text-white hover:text-gray-400">Log In</a>
-                <a href="/signup/" class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700">Sign Up</a>
+                <a href="/login/"  id="login">Log In</a>
+                <a href="/signup/" id="signup">Sign Up</a>
             {% endif %}
         </div>
     </nav>

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Room(models.Model):
     name = models.CharField(max_length=20)
-    slug = models.SlugField(unique=True) 
+    slug = models.SlugField(unique=True, db_index=True, default="", null=False) 
     
     def __str__(self) -> str:
         return self.name
