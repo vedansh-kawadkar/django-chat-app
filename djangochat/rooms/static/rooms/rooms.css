@@ -5,3 +5,15 @@
     color: white;
     margin: 2rem;
 }
+
+#room-btn {
+    padding: 0.75rem 1.25rem; /* Equivalent to px-5 py-3 */
+    border-radius: 1.5rem; /* Equivalent to rounded-xl */
+    color: #ffffff; /* Equivalent to text-white */
+    background-color: #ae8ff2;
+}
+
+#room-btn:hover,
+#room-btn:active {
+    background-color: #916ae6;
+}
