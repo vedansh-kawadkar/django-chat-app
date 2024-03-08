@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown Toggle</title>
+  <style>
+    /* Style for the button */
+    .dropdown-btn {
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Style for the hidden dropdown */
+    .dropdown-content {
+      display: none;
+      padding: 10px;
+      background-color: #f1f1f1;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Button to toggle the dropdown -->
+<button class="dropdown-btn" onclick="toggleDropdown()">Toggle Dropdown</button>
+
+<!-- Hidden dropdown content -->
+<div class="dropdown-content" id="myDropdown">
+  <input type="text" placeholder="Enter something">
+</div>
+
+<script>
+  // Function to toggle the visibility of the dropdown
+  function toggleDropdown() {
+    var dropdown = document.getElementById("myDropdown");
+    dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+  }
+
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropdown-btn')) {
+      var dropdown = document.getElementById("myDropdown");
+      if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+      }
+    }
+  }
+</script>
+
+</body>
+</html>

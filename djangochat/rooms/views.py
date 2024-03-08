@@ -24,6 +24,7 @@ def room(request, slug):
     
     
 @login_required
-def create_room():
+def create_room(request):
+    
     ...
     

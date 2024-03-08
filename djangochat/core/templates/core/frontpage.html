@@ -11,8 +11,38 @@
 </div>
 {% if request.user.is_authenticated %}
 <div class="room-action">
-    <a href="/" id="new-room">Create New Room</a>
+    <a class="dropdown-btn" onclick="toggleDropdown()" id="new-room">Create New Room</a>
+
+    <div class="dropdown-content" id="myDropdown">
+        <form action="/" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Your Chat Room Name">
+            <button type="submit">Create</button>
+        </form>
+    </div>    
+
     <a href="/rooms/" id="rooms">Join Room</a>
 </div>
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Function to toggle the visibility of the dropdown
+    function toggleDropdown() {
+      var dropdown = document.getElementById("myDropdown");
+      dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+    }
+  
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropdown-btn')) {
+        var dropdown = document.getElementById("myDropdown");
+        if (dropdown.style.display === 'block') {
+          dropdown.style.display = 'none';
+        }
+      }
+    }
+</script>
+  
 {% endblock %}

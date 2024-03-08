@@ -2,7 +2,9 @@
     padding: 2.5rem;
     text-align: center;
     height: 50px;
+    position: relative;
 }
+
 
 #new-room {
     text-align: center;
@@ -34,4 +36,15 @@
 #rooms:active{
     background-color: white;
     color: #916ae6;
+}
+
+.dropdown-content {
+    display: none;
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid #ddd;
+    width: max-content;
+    position: absolute;
+    top: 100%;
+    left: 0;
 }
