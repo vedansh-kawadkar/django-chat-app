@@ -5,16 +5,37 @@ import uuid
 
 # Create your models here.
 
+class RoomManager(models.Manager):
+    def users_allowed(self, room):
+        return self.get(name=room).memberships.filter(is_allowed=True).select_related('user')
+
+    
 class Room(models.Model):
     name = models.CharField(max_length=20)
     slug = models.SlugField(unique=True, db_index=True, default="", null=False) 
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     room_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, null=False)
+    is_public = models.BooleanField(default=False)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    
+    objects = RoomManager()
     
     def __str__(self) -> str:
         return self.name
 
+
+class RoomMembership(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    is_allowed = models.BooleanField(default=True)
+    
+    class Meta:
+        unique_together = ('user', 'room',)
+        
+    def __str__(self):
+        return f"{self.user} present in {self.room}"
+    
 
 class Message(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="messages")
@@ -24,4 +45,4 @@ class Message(models.Model):
     
     class Meta:
         ordering = ('date_added', )
-        
+

@@ -24,6 +24,7 @@
 
         <div class="flex items-center space-x-4" id="user-buttons">
             {% if request.user.is_authenticated %}
+                <button type="menu">Profile</button>
                 <a href="/logout/" id="logout">Log Out</a>
             {% else %}
                 <a href="/login/"  id="login">Log In</a>

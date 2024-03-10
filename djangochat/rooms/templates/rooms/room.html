@@ -6,6 +6,18 @@
 {% block css_files %} <link rel="stylesheet" href="{% static 'rooms/room.css' %}"> {% endblock %}
 
 {% block content %}
+
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a href="/">Home</a>
+    <a href="#">Other Rooms</a>
+    {% for r in rooms %}
+        <h3><a href="{% url 'room' r.slug %}">{{ r.name }}</a></h3>
+    {% endfor %}
+</div>
+
+<button class="openbtn" onclick="openNav()">☰</button>  
+
 <div class="room-heading">
     <h1>{{ room.name }}</h1>
 </div>
@@ -35,6 +47,17 @@
 {{ room.slug|json_script:"json-roomname" }}
 {{ request.session.get_expiry_age|json_script:"json-expiry" }}
 <script>
+
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+      
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+    }
+
     const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
     const userName = JSON.parse(document.getElementById('json-username').textContent);
     const expiry = JSON.parse(document.getElementById('json-expiry').textContent);

@@ -36,6 +36,7 @@ def userlogin(request):
             has_errors = False
             request.session.set_expiry(1200)
             login(request, user)
+            request.session['username'] = request.POST.get('username')
             return redirect('frontpage')
         errors = "Invalid Credentials"
         return render(request, 'core/login.html', {
