@@ -16,6 +16,8 @@ def signup(request):
             user = form.save()
             login(request, user)
             
+            request.session['username'] = request.POST.get('username')
+            
             return redirect('frontpage')
     else:
         form = SignUpForm()
