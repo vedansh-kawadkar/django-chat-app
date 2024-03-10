@@ -1,0 +1,11 @@
+To Do:
+    make room based public search 
+    add profile -> added profile icon, description remaining
+    notifications button
+    add invite participant to chat option
+    change create room form
+
+
+Done:
+    add rooms list at left side to switch 
+    membership based rooms listing
