@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm, LoginForm, CreateRoomForm
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
@@ -26,6 +27,7 @@ def signup(request):
         "form":form
     })
     
+    
 def userlogin(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -37,7 +39,9 @@ def userlogin(request):
             request.session.set_expiry(1200)
             login(request, user)
             request.session['username'] = request.POST.get('username')
+                        
             return redirect('frontpage')
+            
         errors = "Invalid Credentials"
         return render(request, 'core/login.html', {
             "errors":errors, 
