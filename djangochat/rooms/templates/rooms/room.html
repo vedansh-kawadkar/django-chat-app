@@ -19,16 +19,36 @@
 <button class="openbtn" onclick="openNav()">☰</button>  
 
 <div class="room-heading">
-    <h1>{{ room.name }}</h1>
+    <a class="dropdown-btn" onclick="toggleDropdown()" id="room-desc"><h1>{{ room.name }}</h1></a>
+
+    <div class="about-room-modal" id="about-room-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>{{ room.name }}</h1>
+            
+            <label for="room-desc">About the room</label>
+            <p>{{ room.description }}</p>
+            
+            <label for="participants-list">All Participants</label>
+            <ul>
+                <li>
+                    {% for participant in participants %}
+                    {{ participant.username }}
+                    {% endfor%}
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
+{% if has_permission %}
 <div class="chat-messages-container">
     <div class="chat-messages" id="chat-messages">
         {% for message in messages %}
-            <div class="chat-message-box">
-                <p class="font-semibold">{{ message.user.username }}</p>
-                <p id="chat-message">{{ message.message_text }}</p> 
-            </div>
+        <div class="chat-message-box">
+            <p class="font-semibold">{{ message.user.username }}</p>
+            <p id="chat-message">{{ message.message_text }}</p> 
+        </div>
         {% endfor %}
     </div>
 </div> 
@@ -39,6 +59,11 @@
         <button class="chat-msg-send" id="chat-msg-send">Send</button>
     </form>
 </div>
+
+{% else %}
+<h1>Permission denied for this room!</h1>
+{% endif %}
+
 {% endblock %}
 
 
@@ -47,16 +72,39 @@
 {{ room.slug|json_script:"json-roomname" }}
 {{ request.session.get_expiry_age|json_script:"json-expiry" }}
 <script>
+    /////////////////----Room desc modal ----/////////////////// 
+
+    var modal = document.getElementById("about-room-modal");
+    var btn = document.getElementById("room-desc");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        span.style.display = "none";
+    }
+
+    window.onclick = function(e) {
+        if(e.target==modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    /////////////////----Side bar navigation----/////////////////// 
 
     function openNav() {
         document.getElementById("mySidebar").style.width = "250px";
         document.getElementById("main").style.marginLeft = "250px";
     }
-      
+    
     function closeNav() {
         document.getElementById("mySidebar").style.width = "0";
         document.getElementById("main").style.marginLeft= "0";
     }
+
+    /////////////////----Chat Web Socket----/////////////////// 
 
     const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
     const userName = JSON.parse(document.getElementById('json-username').textContent);

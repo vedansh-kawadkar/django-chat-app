@@ -9,6 +9,7 @@
 <div class="p-10 lg:p-20 text-center">
     <h1 class="text-3xl lg:text-6xl text-white">Django Chat App</h1>
 </div>
+
 {% if request.user.is_authenticated %}
 <div class="room-action">
     <a class="dropdown-btn" onclick="toggleDropdown()" id="new-room">Create New Room</a>
@@ -16,40 +17,32 @@
     <div id="myModal" class="modal">
 
       <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <form action="/rooms/new_room/" method="post">
-			{% csrf_token %}
-			<h2>Create New Room</h2>
-			<div class="form-field">
-				<label for="room_name">Your Room Name</label>
-				<input type="text" id="room_name" name="room_name">
-			</div>
-			
-			<div class="form-field">
-				<label for="room_desc">About Your Room</label>
-				<textarea type="text" name="room_desc" id="room_desc"></textarea>
-			</div>
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<form action="/rooms/new_room/" method="post">
+				{% csrf_token %}
+				<h2>Create New Room</h2>
+				<div class="form-field">
+					<label for="room_name">Your Room Name</label>
+					<input type="text" id="room_name" name="room_name">
+				</div>
+				
+				<div class="form-field">
+					<label for="room_desc">About Your Room</label>
+					<textarea type="text" name="room_desc" id="room_desc"></textarea>
+				</div>
 
-			<div class="form-field">
-				<label for="is_public">Make Room Public?</label>
-				<input type="checkbox" name="is_public" id="is_public">
-			</div>
+				<div class="form-field">
+					<label for="is_public">Make Room Public?</label>
+					<input type="checkbox" name="is_public" id="is_public">
+				</div>
 
-			<button type="submit" id="create-room-btn">Create!</button>
+				<button type="submit" id="create-room-btn">Create!</button>
 
-		</form>
-      </div>
+			</form>
+		</div>
     
     </div>
-
-    <!-- <div class="dropdown-content" id="myDropdown">
-        <form action="/rooms/new_room/" method="post">
-            {% csrf_token %}
-            <input type="text" placeholder="Your Chat Room Name" name="new_room_name">
-            <button type="submit">Create</button>
-        </form>
-    </div>     -->
 
     <a href="/rooms/" id="rooms">Join Room</a>
 </div>
@@ -58,21 +51,6 @@
 
 {% block scripts %}
 <script>
-    // Function to toggle the visibility of the dropdown
-    function toggleDropdown() {
-      var dropdown = document.getElementById("myDropdown");
-      dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
-    }
-  
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropdown-btn')) {
-        var dropdown = document.getElementById("myDropdown");
-        if (dropdown.style.display === 'block') {
-          dropdown.style.display = 'none';
-        }
-      }
-    }
 
     // Get the modal
 	var modal = document.getElementById("myModal");

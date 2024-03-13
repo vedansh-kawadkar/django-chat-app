@@ -13,7 +13,7 @@ class RoomManager(models.Manager):
 class Room(models.Model):
     name = models.CharField(max_length=20)
     slug = models.SlugField(unique=True, db_index=True, default="", null=False) 
-    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     room_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, null=False)
     is_public = models.BooleanField(default=False)
@@ -22,7 +22,7 @@ class Room(models.Model):
     objects = RoomManager()
     
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name} created by {self.created_by}"
 
 
 class RoomMembership(models.Model):
