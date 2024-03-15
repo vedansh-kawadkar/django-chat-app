@@ -19,23 +19,29 @@
 <button class="openbtn" onclick="openNav()">☰</button>  
 
 <div class="room-heading">
-    <a class="dropdown-btn" onclick="toggleDropdown()" id="room-desc"><h1>{{ room.name }}</h1></a>
+    <a onclick="toggleDropdown()" id="room-desc">{{ room.name }}</a>
 
     <div class="about-room-modal" id="about-room-modal">
+        <span class="close"></span>
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h1>{{ room.name }}</h1>
+            <h1 id="modal-heading">{{ room.name }}</h1>
+
+            <label for="room-desc-text" class="desc-label">Created By</label>
+            <p id="room-desc-text">{{ room.created_by }}</p>
             
-            <label for="room-desc">About the room</label>
-            <p>{{ room.description }}</p>
+            <label for="room-desc-text" class="desc-label">About the room</label>
+            <p id="room-desc-text">{{ room.description }}</p>
             
-            <label for="participants-list">All Participants</label>
-            <ul>
+            <label for="participants-list" class="desc-label">All Participants</label>
+            <button id="add-participant">Add Participant</button>
+            <ul id="participants-list">
+                {% for participant in participants %}
                 <li>
-                    {% for participant in participants %}
-                    {{ participant.username }}
-                    {% endfor%}
+                    <div class="participant">
+                        {{ participant.user.username }}
+                    </div>
                 </li>
+                {% endfor%}
             </ul>
         </div>
     </div>
@@ -53,15 +59,21 @@
     </div>
 </div> 
 
+{% if is_participant %}
 <div class="chat-msg-input-container">
     <form action="." method="post" class="flex">
         <textarea name="content" id="chat-msg-input" class="flex-1 mr-3" placeholder="Your message..."></textarea>
         <button class="chat-msg-send" id="chat-msg-send">Send</button>
     </form>
 </div>
+{% else %}
+<div id="join-room">
+    <a id="join-room-btn" href="{% url 'join_chat_room' room.slug %}">Join Chat!</a>
+</div>
+{% endif %}
 
 {% else %}
-<h1>Permission denied for this room!</h1>
+<h1 id="permission-denied">Permission denied for this room!</h1>
 {% endif %}
 
 {% endblock %}
@@ -83,7 +95,7 @@
     }
 
     span.onclick = function() {
-        span.style.display = "none";
+        modal.style.display = "none";
     }
 
     window.onclick = function(e) {

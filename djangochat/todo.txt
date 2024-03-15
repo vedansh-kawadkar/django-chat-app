@@ -2,11 +2,15 @@ To Do:
     make room based public search 
     add profile -> added profile icon, description remaining
     notifications button
-    add invite participant to chat option
-    change create room form
-    permission based room access: if room is public then just needs to join else needs to show forbidden message
+    add invite participant to chat option -> added button need to add functionality
+    add and chat with friends 
+                                    -> forbidden if user is accessing pvt room or not a participant
 
 
 Done:
+    permission based room access: if room is public then just needs to join else needs to show forbidden message ->
     add rooms list at left side to switch 
+    change create room form
     membership based rooms listing
+    room description 
+    

@@ -46,3 +46,10 @@ class Message(models.Model):
     class Meta:
         ordering = ('date_added', )
 
+
+class Friends(models.Model):
+    friend1 = models.ForeignKey(User, related_name="friend1_of_friend2", on_delete=models.CASCADE)
+    friend2 = models.ForeignKey(User, related_name="friend2_of_friend1", on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = ('friend1', 'friend2',)

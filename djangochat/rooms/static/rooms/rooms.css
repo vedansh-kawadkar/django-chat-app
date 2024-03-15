@@ -6,6 +6,13 @@
     margin: 2rem;
 }
 
+#rooms {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 #room-btn {
     padding: 0.75rem 1.25rem; /* Equivalent to px-5 py-3 */
     border-radius: 1.5rem; /* Equivalent to rounded-xl */
@@ -16,4 +23,10 @@
 #room-btn:hover,
 #room-btn:active {
     background-color: #916ae6;
+}
+
+.no_rooms_found {
+    text-align: center;
+    font-size: 3.5rem;
+    color: white;
 }
