@@ -6,25 +6,9 @@ from django.shortcuts import redirect, render
 from django.utils.text import slugify
 
 from .models import Message, Room, RoomMembership
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
-
-@login_required
-def rooms(request):
-    print("rooms view called")
-    user_name = request.session.get("username")
-    user_id = User.objects.get(username=user_name).id
-    rooms = RoomMembership.objects.filter(user=user_id)
-    
-    no_rooms_found = ""
-    if len(rooms)==0:
-        no_rooms_found = "No rooms found!"
-    
-    return render(request, 'rooms/rooms.html', {
-        "rooms":rooms,
-        "no_rooms_found":no_rooms_found
-    })
-    
     
 @login_required
 def room(request, slug):
@@ -90,9 +74,7 @@ def create_room(request):
         new_room_membership = RoomMembership(user=active_user, room=new_room)
         new_room_membership.save()
         
-        return redirect("rooms")
-    else:
-        return redirect("rooms")
+        return redirect(f"/rooms/room/{room_slug}")
 
 
 @login_required
@@ -108,6 +90,19 @@ def join_chat_room(request, slug):
 
 
 @login_required
-def add_participant_to_room(request):
+def add_participant_to_room(request, slug):
     if request.method=="POST":
-        ...
+        participant = request.POST.get("add-participant-name")
+        active_room = Room.objects.get(slug=slug)
+        print(f"adding participant {participant} to room {active_room}")
+        try:
+            active_user_obj = User.objects.get(username=participant)
+            if not RoomMembership.objects.filter(user=active_user_obj, room=active_room).exists():
+                new_member = RoomMembership(user=active_user_obj, room=active_room)
+                new_member.save()
+            else:
+                print(f"User: {participant} already present.")
+        except ObjectDoesNotExist:
+            print("User not found!")
+        
+        return redirect(request.META['HTTP_REFERER'])

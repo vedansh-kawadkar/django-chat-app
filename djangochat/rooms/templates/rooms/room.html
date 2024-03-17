@@ -7,17 +7,6 @@
 
 {% block content %}
 
-<div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <a href="/">Home</a>
-    <a href="#">Other Rooms</a>
-    {% for r in rooms %}
-        <h3><a href="{% url 'room' r.room.slug %}">{{ r.room.name }}</a></h3>
-    {% endfor %}
-</div>
-
-<button class="openbtn" onclick="openNav()">☰</button>  
-
 <div class="room-heading">
     <a onclick="toggleDropdown()" id="room-desc">{{ room.name }}</a>
 
@@ -33,7 +22,6 @@
             <p id="room-desc-text">{{ room.description }}</p>
             
             <label for="participants-list" class="desc-label">All Participants</label>
-            <button id="add-participant">Add Participant</button>
             <ul id="participants-list">
                 {% for participant in participants %}
                 <li>
@@ -42,6 +30,11 @@
                     </div>
                 </li>
                 {% endfor%}
+                <form action="{%  url 'add_participant' room.slug %}" id="add-participant-to-room" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Enter Participant Username" id="add-participant-name", name="add-participant-name">
+                    <button type="submit">Add</button>
+                </form>
             </ul>
         </div>
     </div>
@@ -83,100 +76,6 @@
 {{ request.user.username|json_script:"json-username" }}
 {{ room.slug|json_script:"json-roomname" }}
 {{ request.session.get_expiry_age|json_script:"json-expiry" }}
-<script>
-    /////////////////----Room desc modal ----/////////////////// 
-
-    var modal = document.getElementById("about-room-modal");
-    var btn = document.getElementById("room-desc");
-    var span = document.getElementsByClassName("close")[0];
-
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(e) {
-        if(e.target==modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    /////////////////----Side bar navigation----/////////////////// 
-
-    function openNav() {
-        document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-    }
-    
-    function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("main").style.marginLeft= "0";
-    }
-
-    /////////////////----Chat Web Socket----/////////////////// 
-
-    const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
-    const userName = JSON.parse(document.getElementById('json-username').textContent);
-    const expiry = JSON.parse(document.getElementById('json-expiry').textContent);
-
-    const chatSocket = new WebSocket(
-        'ws://'
-        + window.location.host
-        + '/ws/'
-        + roomName
-        + '/'
-    );
-
-
-    chatSocket.onmessage = function(e) {
-        console.log('onmessage')
-        console.log(expiry)
-        const data = JSON.parse(e.data);
-        if(data.message){
-            let html_content = '<div class="p-4 bg-gray-200 rounded-xl" id="chat-msg-input">';
-                html_content+='<p class="font-semibold">'+data.username+'</p>';
-                html_content+='<p>'+data.message+'</p></div>';
-            console.log(html_content)
-            document.querySelector("#chat-messages").innerHTML+=html_content;
-
-            scrollToBottom()
-
-        }
-        else{
-            alert("Please type something!")
-        }
-
-    };
-
-    chatSocket.onclose = function(e) {
-        console.log('onclosed')
-    };
-
-    document.querySelector('#chat-msg-send').onclick = function(e){
-        e.preventDefault();
-
-        const messageInputDom = document.querySelector("#chat-msg-input");
-        const message = messageInputDom.value;
-
-        chatSocket.send(JSON.stringify({
-            "message":message,
-            "username":userName,
-            "room":roomName
-        }));
-
-        messageInputDom.value = "";
-
-        return false;
-    };
-
-    function scrollToBottom(){
-        const objDiv = document.querySelector("#chat-messages");
-        objDiv.scrollTop = objDiv.scrollHeight;
-    }
-
-    scrollToBottom()
+<script src="{% static 'js/room.js' %}">
 </script>
 {% endblock %}

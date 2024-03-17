@@ -5,6 +5,11 @@
     position: relative;
 }
 
+.frontpage-heading {
+    text-align: center;
+    margin: 2rem;
+}
+
 
 #new-room {
     text-align: center;

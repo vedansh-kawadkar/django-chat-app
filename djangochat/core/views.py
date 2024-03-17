@@ -3,11 +3,20 @@ from .forms import SignUpForm, LoginForm, CreateRoomForm
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from rooms.models import Room, RoomMembership
+from django.contrib.auth.models import User
 # Create your views here.
 
 
 def frontpage(request):
-    return render(request, "core/frontpage.html")
+    if request.user.is_authenticated:
+        user_name = request.session.get("username")
+        user_id = User.objects.get(username=user_name).id
+        rooms = RoomMembership.objects.filter(user=user_id)
+        return render(request, "core/frontpage.html", context={
+            "rooms":rooms
+        })
+    return render(request, 'core/frontpage.html')
 
 def signup(request):
     if request.method == 'POST':

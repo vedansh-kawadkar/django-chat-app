@@ -6,7 +6,7 @@
 {% block css_files %} <link rel="stylesheet" href="{% static 'core/frontpage.css' %}"> {% endblock %}
 
 {% block content %}
-<div class="p-10 lg:p-20 text-center">
+<div class="frontpage-heading">
     <h1 class="text-3xl lg:text-6xl text-white">Django Chat App</h1>
 </div>
 
@@ -37,14 +37,13 @@
 					<input type="checkbox" name="is_public" id="is_public">
 				</div>
 
-				<button type="submit" id="create-room-btn">Create!</button>
-
+				<button type="submit" id="create-room-btn" >Create!</button>
 			</form>
 		</div>
     
     </div>
 
-    <a href="/rooms/" id="rooms">Join Room</a>
+    <a id="rooms">Search Group/User</a>
 </div>
 {% endif %}
 {% endblock %}
@@ -77,6 +76,7 @@
 		modal.style.display = "none";
 		}
 	}
+    
 </script>
   
 {% endblock %}

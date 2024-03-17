@@ -1,5 +1,5 @@
 To Do:
-    make room based public search 
+    make room/friend based public search 
     add profile -> added profile icon, description remaining
     notifications button
     add invite participant to chat option -> added button need to add functionality
