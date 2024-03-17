@@ -3,38 +3,50 @@
 {% block title %}Sign Up | {% endblock %}
 
 {% block content %}
-<div class="p-10 lg:p-20 text-center">
-    <h1 class="text-3xl lg:text-6xl text-white">Sign Up</h1>
-</div>
-
-<form action="/signup/" method="post" class="lg:w-1/4 px-4 mx-auto">
-    {% csrf_token %}
-    <div class="mb-5">
-        <label for="" class="text-white">Username</label>
-        <input type="text" name="username" class="w-full mt-2 px-4 py-2 rounded-xl">
+<div class="max-w-md mx-auto rounded-lg overflow-hidden shadow-lg">
+    <div class="grid grid-cols-2">
+        <a href="/login/" id="signup">
+            <div class="text-center w-full cursor-pointer py-4 text-white bg-white bg-opacity-10 hover:bg-opacity-15  transition-all duration-200">Log In</div>
+        </a>
+      <div class="text-center w-full py-4 text-white bg-violet-500">Sign Up</div>
     </div>
-
-    <div class="mb-5">
-        <label for="" class="text-white">Password</label>
-        <input type="password" name="password1" class="w-full mt-2 px-4 py-2 rounded-xl">
-    </div>
-
-    <div class="mb-5">
-        <label for="" class="text-white">Repeat Password</label>
-        <input type="password" name="password2" class="w-full mt-2 px-4 py-2 rounded-xl">
-    </div>
-
-    {% if form.errors %}
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="mb-5 p-4 rounded-xl bg-red-400 text-white border-white">
-                    <p>{{ error|escape }}</p>
-                </div>
+    <form action="/signup/" method="post" class="max-w-md p-6 mx-auto bg-white bg-opacity-10">
+        {% csrf_token %}
+        <input
+          type="text"
+          name="username"
+          class="w-full mb-5 mt-2 px-4 py-2 rounded-md bg-violet-500 bg-opacity-40 transition-all duration-200 outline-none focus:bg-opacity-60 focus:outline-none placeholder:text-gray-300"
+          placeholder="Username"
+          />
+        
+          <input
+          type="password"
+          name="password1"
+          class="w-full mb-5 mt-2 px-4 py-2 rounded-md bg-violet-500 bg-opacity-40 transition-all duration-200 outline-none focus:bg-opacity-60 focus:outline-none placeholder:text-gray-300"
+          placeholder="Password"
+          />
+    
+          <input
+          type="password"
+          name="password2"
+          class="w-full mb-5 mt-2 px-4 py-2 rounded-md bg-violet-500 bg-opacity-40 transition-all duration-200 outline-none focus:bg-opacity-60 focus:outline-none placeholder:text-gray-300"
+          placeholder="Repeat Password"
+          />
+    
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="p-4 mb-5 rounded-xl bg-violet-500 bg-opacity-60 text-white border-violet-500 border-2">
+                        <p>{{ error|escape }}</p>
+                    </div>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-    {% endif %}
-
-    <button class="px-5 py-3 rounded-xl text-white bg-teal-800 hover:bg-teal-700">Submit</button>
-</form>
+        {% endif %}
+    
+        <button class="bg-violet-500 bg-opacity-80 hover:bg-opacity-100 transition-all duration-200 w-full text-center px-5 py-3 rounded-xl text-white">
+            Sign Up
+          </button>
+    </form>
+  </div>
 {% endblock %}
 
