@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'core',
-    'rooms'
+    'rooms',
+    'notifications'
 ]
 
 MIDDLEWARE = [

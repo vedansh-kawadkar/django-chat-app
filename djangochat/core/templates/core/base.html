@@ -36,15 +36,15 @@
     {% if request.user.is_authenticated %}
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="/">Home</a>
-        <a>Your Friends</a>
-        {% for f in friends %}
-            <h3><a href="{% url 'room' r.room.slug %}">{{ r.room.name }}</a></h3>
+        <a href="/" id="sidebar-label">Home</a>
+        <a id="sidebar-label">Your Friends</a>
+        {% for r in rooms %}
+            <h3><a href="{% url 'room' r.room.slug %}" id="sidebar-friend-name">{{ r.room.name }}</a></h3>
         {% endfor %}
         
-        <a>Your Groups</a>
+        <a id="sidebar-label">Your Groups</a>
         {% for r in rooms %}
-            <h3><a href="{% url 'room' r.room.slug %}">{{ r.room.name }}</a></h3>
+            <h3><a href="{% url 'room' r.room.slug %}" id="sidebar-room-name">{{ r.room.name }}</a></h3>
         {% endfor %}
     </div>
 

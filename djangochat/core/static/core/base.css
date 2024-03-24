@@ -46,16 +46,42 @@ a:active{
     padding-top: 60px;
 }
   
-.sidebar a {
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+#sidebar-label {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     color: #818181;
     display: block;
     transition: 0.3s;
+    font-size: 1.4rem;
 }
-  
-.sidebar a:hover {
+
+#sidebar-label:hover {
     color: #f1f1f1;
+
+}
+
+#sidebar-friend-name, #sidebar-room-name {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    margin-left: 10px;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+#sidebar-friend-name:hover, #sidebar-room-name:hover {
+    color: #111;
+    font-size: 1.2rem;
+    background-color: #f1f1f1;
+    margin-left: 10px;
+    margin-right: 20px;
+    border-radius: 10px;
 }
   
 .sidebar .closebtn {
@@ -64,6 +90,7 @@ a:active{
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+    color: white;
 }
   
 .openbtn {
