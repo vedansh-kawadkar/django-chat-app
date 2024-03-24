@@ -6,8 +6,8 @@
 {% block css_files %} <link rel="stylesheet" href="{% static 'core/frontpage.css' %}"> {% endblock %}
 
 {% block content %}
-<div class="frontpage-heading">
-    <h1 class="text-3xl lg:text-6xl text-white">Django Chat App</h1>
+<div class="mx-auto md:max-w-6xl max-w-md space-y-4 md:space-y-12 mt-4">
+	<p class="text-white">Welcome to Django Chat App. This is a simple chat application built with Django and Django Channels. You can create a room and invite your friends to join the room. You can also join a public room and chat with other users. </p>
 </div>
 
 {% if request.user.is_authenticated %}

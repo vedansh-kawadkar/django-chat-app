@@ -17,9 +17,9 @@
     </style>
 </head>
 <body>
-    <nav>
+    <nav class="px-16 py-6 bg-[#8b5feb] shadow-inner shadow-md">
         <div id="app-name">
-            <a href="/" >DjangoChat</a>
+            <a href="/">DjangoChat</a>
         </div>
 
         <div class="flex items-center space-x-4" id="user-buttons">
@@ -49,6 +49,11 @@
     </div>
 
     <button class="openbtn" onclick="openNav()">☰</button> 
+
+    {% else %}
+    <div class="mx-auto md:max-w-6xl max-w-md space-y-4 md:space-y-12 my-12">
+        <h1 class="text-3xl lg:text-6xl text-white text-center">Django Chat App</h1>
+    </div>
     {% endif %}
 
     {% block content %}

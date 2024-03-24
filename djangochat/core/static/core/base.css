@@ -6,25 +6,14 @@ body {
 #app-name {
     color: white;
     font-size: x-large;
-    margin-left: 4rem;
     font-weight: bolder;
 }
 
 nav {
     display: flex; 
     align-items: center;
-    justify-content: space-between; 
-    padding-left: 1rem; 
-    padding-right: 1rem; 
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    background-color: transparent;
+    justify-content: space-between;
     color: azure;
-}
-
-a:hover, 
-a:active{
-    color:#d2d5d5; 
 }
 
 #user-buttons {
