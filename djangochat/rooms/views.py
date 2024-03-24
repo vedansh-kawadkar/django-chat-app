@@ -106,3 +106,8 @@ def add_participant_to_room(request, slug):
             print("User not found!")
         
         return redirect(request.META['HTTP_REFERER'])
+
+@login_required
+def add_friend(request):
+    
+    ...

@@ -1,12 +1,19 @@
 /////////////////----Room desc modal ----/////////////////// 
 
 var modal = document.getElementById("about-room-modal");
-var btn = document.getElementById("room-desc");
+var groupinfo = document.getElementById("icon1");
+var plist = document.getElementById("icon2");
 var span = document.getElementsByClassName("close")[0];
+var modal2 = document.getElementById("participants-modal");
 
-btn.onclick = function() {
+groupinfo.onclick = function() {
     modal.style.display = "block";
 }
+
+plist.onclick = function() {
+    modal2.style.display = "block";
+}
+
 
 span.onclick = function() {
     modal.style.display = "none";
@@ -16,7 +23,11 @@ window.onclick = function(e) {
     if(e.target==modal) {
         modal.style.display = "none";
         }
+    
+    if(e.target==modal2){
+        modal2.style.display = 'none';
     }
+}
 
 /////////////////----Chat Web Socket----/////////////////// 
 

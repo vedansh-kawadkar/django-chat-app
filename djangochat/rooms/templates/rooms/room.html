@@ -3,12 +3,17 @@
 
 {% block title %}{{ room.name }} | {% endblock %}
 
-{% block css_files %} <link rel="stylesheet" href="{% static 'rooms/room.css' %}"> {% endblock %}
+{% block css_files %} 
+<link rel="stylesheet" href="{% static 'rooms/room.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
 
 {% block content %}
 
 <div class="room-heading">
-    <a onclick="toggleDropdown()" id="room-desc">{{ room.name }}</a>
+    <a id="room-desc">{{ room.name }}</a>
+    <i class="fa fa-info-circle" aria-hidden="true" id="icon1" title="Group Info" style="font-size: 1.5rem;"></i>
+    <i class="fa fa-users" aria-hidden="true" id="icon2" title="All Participants" style="font-size: 1.5rem;"></i>
 
     <div class="about-room-modal" id="about-room-modal">
         <span class="close"></span>
@@ -21,12 +26,23 @@
             <label for="room-desc-text" class="desc-label">About the room</label>
             <p id="room-desc-text">{{ room.description }}</p>
             
+        </div>
+    </div>
+
+    <div class="participants-modal" id="participants-modal">
+        <span class="close"></span>
+        <div class="modal-content">
             <label for="participants-list" class="desc-label">All Participants</label>
             <ul id="participants-list">
                 {% for participant in participants %}
                 <li>
                     <div class="participant">
                         {{ participant.user.username }}
+                        {% if participant.user.username == request.session.username %}
+                        <a id="you">You</a>
+                        {% else %}
+                        <i class="fa fa-user-plus" aria-hidden="true" id="add-as-friend" title="Add as friend"><a href=""></a></i>
+                        {% endif %}
                     </div>
                 </li>
                 {% endfor%}
@@ -35,7 +51,7 @@
                     <input type="text" placeholder="Enter Participant Username" id="add-participant-name", name="add-participant-name">
                     <button type="submit">Add</button>
                 </form>
-            </ul>
+            </ul> 
         </div>
     </div>
 </div>

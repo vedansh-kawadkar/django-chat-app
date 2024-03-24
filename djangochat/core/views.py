@@ -3,8 +3,10 @@ from .forms import SignUpForm, LoginForm, CreateRoomForm
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
-from rooms.models import Room, RoomMembership
+from rooms.models import Room, RoomMembership, Friends
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 
@@ -59,3 +61,18 @@ def userlogin(request):
         
     else:
         return render(request, 'core/login.html')
+    
+@login_required
+def search(request):
+    if request.method == "POST":
+        searchkey = request.POST.get("searchkey")
+        search_results_room = Room.objects.filter(name__contains=searchkey)
+        search_results_users = User.objects.filter(username__contains=searchkey)
+        print(search_results_room)
+        print(search_results_users)
+        
+        return render(request, "core/search_friends_or_grp.html", context={
+            "search_users":search_results_users,
+            "search_results_room":search_results_room
+        })
+    return render(request, "core/search_friends_or_grp.html")
