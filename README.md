@@ -18,17 +18,17 @@ python manage.py runserver
 ```
 
 ## Screenshots
-- Login/Signup Page
+- ### Login/Signup Page
 ![alt text](screenshots/login_signup.png)
 
-- Main Page
+- ### Main Page
 ![alt text](screenshots/mainpage.png)
 
-- Search Feature
+- ### Search Feature
 ![alt text](screenshots/search.png)
 
-- Create Chat Room
+- ### Create Chat Room
 ![alt text](screenshots/create_room.png)
 
-- Chat Room
+- ### Chat Room
 ![alt text](screenshots/chatroom.png)
