@@ -53,3 +53,13 @@ class Friends(models.Model):
     
     class Meta:
         unique_together = ('friend1', 'friend2',)
+
+
+class UserChat(models.Model):
+    name = models.CharField(max_length=100)
+    room_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, null=False)
+    slug = models.SlugField(unique=True, db_index=True, default="", null=False)
+    
+    def __str__(self):
+        return self.name
+    

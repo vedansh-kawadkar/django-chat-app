@@ -7,11 +7,11 @@
 
 {% block content %}
 
-{% if request.user.is_authenticated %}
 
 <div class="mx-auto md:max-w-6xl max-w-md space-y-4 md:space-y-12 my-12">
-	<h1 class="text-3xl lg:text-6xl text-white text-center">Django Chat App</h1>
+	<h1 class="text-3xl lg:text-6xl text-white text-center">Moon Chat App</h1>
 </div>
+{% if request.user.is_authenticated %}
 
 <div class="room-action">
     <a class="dropdown-btn" onclick="toggleDropdown()" id="new-room">Create New Room</a>
@@ -23,7 +23,7 @@
 			<span class="close">&times;</span>
 			<form action="/rooms/new_room/" method="post">
 				{% csrf_token %}
-				<h2>Create New Room</h2>
+				<h2 id="create-room-heading">Create New Room</h2>
 				<div class="form-field">
 					<label for="room_name">Your Room Name</label>
 					<input type="text" id="room_name" name="room_name">

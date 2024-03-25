@@ -49,11 +49,12 @@ chatSocket.onmessage = function(e) {
     console.log(expiry)
     const data = JSON.parse(e.data);
     if(data.message){
-        let html_content = '<div class="p-4 bg-gray-200 rounded-xl" id="chat-msg-input">';
-            html_content+='<p class="font-semibold">'+data.username+'</p>';
-            html_content+='<p>'+data.message+'</p></div>';
-        console.log(html_content)
-        document.querySelector("#chat-messages").innerHTML+=html_content;
+
+        let hm = '<div class="chat-message-box"><div class="chat-user-icon"><i class="fa fa-user-circle" aria-hidden="true" id="user-icon"></i></div><div class="chat-msg"><p class="font-semibold">'+data.username+'</p><p id="chat-message">'+data.message+'</p></div></div>';
+
+
+        console.log(hm)
+        document.querySelector("#chat-messages").innerHTML+=hm;
 
         scrollToBottom()
 

@@ -151,7 +151,17 @@
     padding: 1rem; /* Equivalent to p-4 */
     background-color: #ffffff; /* Equivalent to bg-white */
     border-radius: 1.5rem; /* Equivalent to rounded-xl */
-  }
+}
+
+.chat-msg {
+    margin-left: 1rem;
+}
+
+.chat-user-icon {
+    align-items: center;
+    font-size: 2rem !important;
+}
+
 
 #chat-message {
     text-wrap: wrap;
@@ -171,6 +181,7 @@
     padding: 1rem; /* Equivalent to p-4 */
     background-color: #e5e5e5; /* Equivalent to bg-gray-200 */
     border-radius: 1.5rem; /* Equivalent to rounded-xl */
+    display: flex;
 }
 
 .chat-msg-input-container{

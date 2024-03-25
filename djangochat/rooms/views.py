@@ -16,10 +16,8 @@ def room(request, slug):
     user_name = request.session.get("username")
     user_id = User.objects.get(username=user_name).id
     room = Room.objects.get(slug=slug)
-    #print("active user name: ",user_name, "id: ", user_id)
     rooms = RoomMembership.objects.filter(user=user_id) 
     participants = RoomMembership.objects.filter(room=room)
-    #print(f"room id: {room.room_id}, room desc: {room.description}, is room public: {room.is_public}, room created by: {room.created_by}, room participants: {participants}")
     is_participant_of_room = True if len(RoomMembership.objects.filter(room=room).filter(user=user_id))>0 else False
     
     #join room because have access, pvt or public doesn't matter
@@ -106,6 +104,13 @@ def add_participant_to_room(request, slug):
             print("User not found!")
         
         return redirect(request.META['HTTP_REFERER'])
+
+
+@login_required
+def chat_with_user(request, username):
+    
+    ...
+
 
 @login_required
 def add_friend(request):

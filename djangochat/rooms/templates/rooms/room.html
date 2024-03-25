@@ -41,7 +41,7 @@
                         {% if participant.user.username == request.session.username %}
                         <a id="you">You</a>
                         {% else %}
-                        <i class="fa fa-user-plus" aria-hidden="true" id="add-as-friend" title="Add as friend"><a href=""></a></i>
+                        <i class="fa fa-user-plus" aria-hidden="true" id="add-as-friend" title="Add as friend"><a href="#"></a></i>
                         {% endif %}
                     </div>
                 </li>
@@ -61,8 +61,13 @@
     <div class="chat-messages" id="chat-messages">
         {% for message in messages %}
         <div class="chat-message-box">
-            <p class="font-semibold">{{ message.user.username }}</p>
-            <p id="chat-message">{{ message.message_text }}</p> 
+            <div class="chat-user-icon">
+                <i class="fa fa-user-circle" aria-hidden="true" id="user-icon"></i>
+            </div>
+            <div class="chat-msg">
+                <p class="font-semibold">{{ message.user.username }}</p>
+                <p id="chat-message">{{ message.message_text }}</p> 
+            </div>
         </div>
         {% endfor %}
     </div>

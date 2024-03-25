@@ -5,9 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %} DjangoChat</title>
+    <title>{% block title %} {% endblock %} Moon Chat</title>
     <script src="https://cdn.tailwindcss.com" ></script>
     <link rel="stylesheet" href="{% static 'core/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     {% block css_files %}{% endblock %}
     <style>
         .chat-messages{
@@ -17,13 +19,16 @@
     </style>
 </head>
 <body>
-    <nav class="px-16 py-6 bg-[#8b5feb] shadow-inner shadow-md">
+    <nav>
         <div id="app-name">
-            <a href="/">DjangoChat</a>
+            <a href="/">Moon Chat</a>
         </div>
 
         <div class="flex items-center space-x-4" id="user-buttons">
             {% if request.user.is_authenticated %}
+                <a class="nav-link " href="#"  data-bs-toggle="dropdown" aria-expanded="false">
+                    <i id="bellCount" class="fa-solid fa-bell" data-count="0" ></i>
+                </a>
                 <button type="menu">Profile</button>
                 <a href="/logout/" id="logout">Log Out</a>
             {% else %}
@@ -34,30 +39,34 @@
     </nav>
 
     {% if request.user.is_authenticated %}
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="/" id="sidebar-label">Home</a>
-        <a id="sidebar-label">Your Friends</a>
-        {% for r in rooms %}
-            <h3><a href="{% url 'room' r.room.slug %}" id="sidebar-friend-name">{{ r.room.name }}</a></h3>
-        {% endfor %}
-        
-        <a id="sidebar-label">Your Groups</a>
-        {% for r in rooms %}
-            <h3><a href="{% url 'room' r.room.slug %}" id="sidebar-room-name">{{ r.room.name }}</a></h3>
-        {% endfor %}
-    </div>
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+            <a href="/" id="sidebar-label">Home</a>
+            <a id="sidebar-label">Your Friends</a>
+            {% for r in rooms %}
+                <h3><a href="{% url 'room' r.room.slug %}" id="sidebar-friend-name">{{ r.room.name }}</a></h3>
+            {% endfor %}
+            
+            <a id="sidebar-label">Your Groups</a>
+            {% for r in rooms %}
+                <h3><a href="{% url 'room' r.room.slug %}" id="sidebar-room-name">{{ r.room.name }}</a></h3>
+            {% endfor %}
+        </div>
 
-    <button class="openbtn" onclick="openNav()">☰</button> 
-
-    {% else %}
-    <div class="mx-auto md:max-w-6xl max-w-md space-y-4 md:space-y-12 my-12">
-        <h1 class="text-3xl lg:text-6xl text-white text-center">Django Chat App</h1>
-    </div>
     {% endif %}
 
-    {% block content %}
-    {% endblock %}
+    <div class="content">
+        {% if request.user.is_authenticated %}
+        <button class="openbtn" onclick="openNav()">☰</button> 
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer class="footer">
+        Footer
+    </footer>
 
     <script src="{% static 'js/base.js' %}"></script>
     {% block scripts %}
